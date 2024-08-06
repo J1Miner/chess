@@ -1,10 +1,39 @@
 #include "game.h"
+sf::Texture bBishopTex;
+sf::Texture bKingTex;
+sf::Texture bKnightTex;
+sf::Texture bPawnTex;
+sf::Texture bQueenTex;
+sf::Texture bRookTex;
+sf::Texture wBishopTex;
+sf::Texture wKingTex;
+sf::Texture wKnightTex;
+sf::Texture wPawnTex;
+sf::Texture wQueenTex;
+sf::Texture wRookTex;
+
+void loadTexture() {
+    bBishopTex.loadFromFile("resources/sprites/bBishop.png");
+    bKingTex.loadFromFile("resources/sprites/bKing.png");
+    bKnightTex.loadFromFile("resources/sprites/bKnight.png");
+    bPawnTex.loadFromFile("resources/sprites/bPawn.png");
+    bQueenTex.loadFromFile("resources/sprites/bQueen.png");
+    bRookTex.loadFromFile("resources/sprites/bRook.png");
+    wBishopTex.loadFromFile("resources/sprites/wBishop.png");
+    wKingTex.loadFromFile("resources/sprites/wKing.png");
+    wKnightTex.loadFromFile("resources/sprites/wKnight.png");
+    wPawnTex.loadFromFile("resources/sprites/wPawn.png");
+    wQueenTex.loadFromFile("resources/sprites/wQueen.png");
+    wRookTex.loadFromFile("resources/sprites/wRook.png");
+
+}
+
 
 void Game::Setup(Piece* blackPieces, Piece* whitePieces) {
     int m = 0;
     for (int i = 0; i < 3; i++) {
         for (int j = (i % 2 == 0) ? 1 : 0; j < 8; j += 2) {
-            whitePieces[m] = Piece(j, i, sf::Color::White);
+            whitePieces[m] = Piece(j, i, sf::Color::White, &wPawnTex);
             m++;
         }
     }
@@ -12,7 +41,7 @@ void Game::Setup(Piece* blackPieces, Piece* whitePieces) {
     m = 0;
     for (int i = 5; i < 8; i++) {
         for (int j = (i % 2 == 1) ? 0 : 1; j < 8; j += 2) {
-            blackPieces[m] = Piece(j, i, sf::Color::Black);
+            blackPieces[m] = Piece(j, i, sf::Color::Black, &bPawnTex);
             m++;
         }
     }

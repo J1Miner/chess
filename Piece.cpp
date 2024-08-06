@@ -1,11 +1,12 @@
-#include "piece.h"
+#include "Piece.h"
 
-Piece::Piece(int x, int y, sf::Color color, sf::Texture& texture)
-    : x(x), y(y), color(color), isKing(false), isAlive(true) , texture(texture) {
-    sprite.setTexture(texture);
+Piece::Piece(int x, int y, sf::Color color, sf::Texture* texture)
+    : x(x), y(y), color(color), isKing(false), isAlive(true), texture(texture), sprite(sf::Sprite()) {
 }
 
-
+void Piece::setTexture() {
+    sprite.setTexture(*texture);
+}
 
 void Piece::Draw(sf::RenderWindow& window) const {
     if (isAlive) {
