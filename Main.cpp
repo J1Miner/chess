@@ -3,6 +3,8 @@
 #include "piece.h"
 #include "game.h"
 
+//hello
+
 int main() {
     // Setup the SFML window
     sf::RenderWindow window(sf::VideoMode(600, 600), "Checkers");
