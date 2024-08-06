@@ -542,6 +542,20 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
   <ItemGroup>
     <Font Include="resources\sansation.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\sprites\bBishop.png" />
+    <Image Include="resources\sprites\bKing.png" />
+    <Image Include="resources\sprites\bKnight.png" />
+    <Image Include="resources\sprites\bPawn.png" />
+    <Image Include="resources\sprites\bQueen.png" />
+    <Image Include="resources\sprites\bRook.png" />
+    <Image Include="resources\sprites\wBishop.png" />
+    <Image Include="resources\sprites\wKing.png" />
+    <Image Include="resources\sprites\wKnight.png" />
+    <Image Include="resources\sprites\wPawn.png" />
+    <Image Include="resources\sprites\wQueen.png" />
+    <Image Include="resources\sprites\wRook.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

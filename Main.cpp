@@ -7,7 +7,10 @@
 //TODO: initialize loadTexture function here
 
 
+
 int main() {
+    Piece::loadStaticTextures();
+
     // Setup the SFML window
     sf::RenderWindow window(sf::VideoMode(600, 600), "Chess");
     window.setFramerateLimit(60);
@@ -45,10 +48,10 @@ int main() {
 
         // Draw board and pieces
         board.Draw(window);
-        for (const Piece& piece : blackPieces) {
+        for ( Piece& piece : blackPieces) {
             piece.Draw(window);
         }
-        for (const Piece& piece : whitePieces) {
+        for ( Piece& piece : whitePieces) {
             piece.Draw(window);
         }
 

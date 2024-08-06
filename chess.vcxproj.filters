@@ -513,4 +513,42 @@
       <Filter>Resource Files</Filter>
     </Font>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\sprites\bBishop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\bKing.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\bKnight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\bPawn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\bQueen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\bRook.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\wBishop.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\wKing.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\wKnight.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\wPawn.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\wQueen.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="resources\sprites\wRook.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

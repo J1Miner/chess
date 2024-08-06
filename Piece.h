@@ -1,22 +1,41 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
-
+enum Type {
+    BISHOP,
+    KING,
+    KNIGHT,
+    PAWN,
+    QUEEN,
+    ROOK
+};
 class Piece {
 public:
-    //NEVER ACTUALLY USE THIS DEFAULT TEXTURE IT IS JUST HERE TO MAKE YOUR CODE HAPPY
-    static sf::Texture defaultTex;
+    static sf::Texture bBishopTex;
+    static sf::Texture bKingTex;
+    static sf::Texture bKnightTex;
+    static sf::Texture bPawnTex;
+    static sf::Texture bQueenTex;
+    static sf::Texture bRookTex;
+    static sf::Texture wBishopTex;
+    static sf::Texture wKingTex;
+    static sf::Texture wKnightTex;
+    static sf::Texture wPawnTex;
+    static sf::Texture wQueenTex;
+    static sf::Texture wRookTex;
+
     int x;
     int y;
-    bool isKing;
-    sf::Texture* texture;
-    sf::Sprite sprite;
+    bool isKing = false;
+    sf::Texture *texture = nullptr;
+    Type pieceType = PAWN;
 
     sf::Color color;
-    bool isAlive;
+    bool isAlive = true;
+    Piece();
+    Piece(int x, int y, sf::Color color, Type pieceType);
 
-    Piece(int x = 0, int y = 0, sf::Color color = sf::Color::White, sf::Texture* texture = nullptr);
-
-    void Draw(sf::RenderWindow& window) const;
+    void Draw(sf::RenderWindow& window);
     void setTexture();
+
+    static void loadStaticTextures();
 };
