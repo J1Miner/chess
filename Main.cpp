@@ -3,7 +3,7 @@
 #include "piece.h"
 #include "game.h"
 
-//hello
+//hello John
 
 int main() {
     // Setup the SFML window
