@@ -7,7 +7,7 @@
 
 int main() {
     // Setup the SFML window
-    sf::RenderWindow window(sf::VideoMode(600, 600), "Checkers");
+    sf::RenderWindow window(sf::VideoMode(600, 600), "Chess");
     window.setFramerateLimit(60);
 
     // Initialize board and pieces
