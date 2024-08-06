@@ -1,7 +1,9 @@
 #include "piece.h"
 
-Piece::Piece(int x, int y, sf::Color color)
-    : x(x), y(y), color(color), isKing(false), isAlive(true) {}
+Piece::Piece(int x, int y, sf::Color color, sf::Texture& texture)
+    : x(x), y(y), color(color), isKing(false), isAlive(true) , texture(texture) {
+    sprite.setTexture(texture);
+}
 
 
 
