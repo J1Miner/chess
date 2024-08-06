@@ -4,6 +4,36 @@
 #include "game.h"
 
 //hello John
+//TODO: initialize loadTexture function here
+sf::Texture bBishopTex;
+sf::Texture bKingTex;
+sf::Texture bKnightTex;
+sf::Texture bPawnTex;
+sf::Texture bQueenTex;
+sf::Texture bRookTex;
+sf::Texture wBishopTex;
+sf::Texture wKingTex;
+sf::Texture wKnightTex;
+sf::Texture wPawnTex;
+sf::Texture wQueenTex;
+sf::Texture wRookTex;
+
+void loadTexture() {
+    bBishopTex.loadFromFile("bBishop.png");
+    bKingTex.loadFromFile("bKing.png");
+    bKnightTex.loadFromFile("bKnight.png");
+    bPawnTex.loadFromFile("bPawn.png");
+    bQueenTex.loadFromFile("bQueen.png");
+    bRookTex.loadFromFile("bRook.png");
+    wBishopTex.loadFromFile("wBishop.png");
+    wKingTex.loadFromFile("wKing.png");
+    wKnightTex.loadFromFile("wKnight.png");
+    wPawnTex.loadFromFile("wPawn.png");
+    wQueenTex.loadFromFile("wQueen.png");
+    wRookTex.loadFromFile("wRook.png");
+
+
+}
 
 int main() {
     // Setup the SFML window
@@ -68,3 +98,5 @@ int main() {
 
     return 0;
 }
+
+//TODO: Define loadTexture function here
