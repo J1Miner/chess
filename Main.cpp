@@ -12,13 +12,13 @@ int main() {
 
     // Initialize board and pieces
     Board board;
-    Piece redPieces[12];
+    Piece blackPieces[12];
     Piece whitePieces[12];
     Game game;
-    game.Setup(redPieces, whitePieces);
+    game.Setup(blackPieces, whitePieces);
 
     // Game state variables
-    int turn = 0;  // 0 for Red, 1 for White
+    int turn = 0;  // 0 for Black, 1 for White
     int selectedX = -1;
     int selectedY = -1;
     bool isPieceSelected = false;
@@ -34,7 +34,7 @@ int main() {
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                game.ProcessTurn(turn, mousePos, redPieces, whitePieces, selectedX, selectedY, isPieceSelected, pieceHasJumped);
+                game.ProcessTurn(turn, mousePos, blackPieces, whitePieces, selectedX, selectedY, isPieceSelected, pieceHasJumped);
             }
         }
 
@@ -43,7 +43,7 @@ int main() {
 
         // Draw board and pieces
         board.Draw(window);
-        for (const Piece& piece : redPieces) {
+        for (const Piece& piece : blackPieces) {
             piece.Draw(window);
         }
         for (const Piece& piece : whitePieces) {
@@ -55,8 +55,8 @@ int main() {
             board.HighlightSelectedPiece(window, selectedX, selectedY);
 
             // Get available moves and highlight them
-            Piece* selectedPiece = game.FindPiece(selectedX, selectedY, redPieces, whitePieces);
-            std::vector<std::pair<int, int>> availableMoves = game.GetAvailableMoves(selectedPiece, redPieces, whitePieces);
+            Piece* selectedPiece = game.FindPiece(selectedX, selectedY, blackPieces, whitePieces);
+            std::vector<std::pair<int, int>> availableMoves = game.GetAvailableMoves(selectedPiece, blackPieces, whitePieces);
             for (const auto& move : availableMoves) {
                 board.HighlightMove(window, move.first, move.second);
             }
