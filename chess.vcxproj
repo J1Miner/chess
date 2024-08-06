@@ -542,9 +542,6 @@ copy /Y "$(SolutionDir)resources"  "$(TargetDir)resources\"</Command>
   <ItemGroup>
     <Font Include="resources\sansation.ttf" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="test.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
