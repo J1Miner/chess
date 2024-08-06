@@ -19,18 +19,18 @@ sf::Texture wQueenTex;
 sf::Texture wRookTex;
 
 void loadTexture() {
-    bBishopTex.loadFromFile("bBishop.png");
-    bKingTex.loadFromFile("bKing.png");
-    bKnightTex.loadFromFile("bKnight.png");
-    bPawnTex.loadFromFile("bPawn.png");
-    bQueenTex.loadFromFile("bQueen.png");
-    bRookTex.loadFromFile("bRook.png");
-    wBishopTex.loadFromFile("wBishop.png");
-    wKingTex.loadFromFile("wKing.png");
-    wKnightTex.loadFromFile("wKnight.png");
-    wPawnTex.loadFromFile("wPawn.png");
-    wQueenTex.loadFromFile("wQueen.png");
-    wRookTex.loadFromFile("wRook.png");
+    bBishopTex.loadFromFile("resources/sprites/bBishop.png");
+    bKingTex.loadFromFile("resources/sprites/bKing.png");
+    bKnightTex.loadFromFile("resources/sprites/bKnight.png");
+    bPawnTex.loadFromFile("resources/sprites/bPawn.png");
+    bQueenTex.loadFromFile("resources/sprites/bQueen.png");
+    bRookTex.loadFromFile("resources/sprites/bRook.png");
+    wBishopTex.loadFromFile("resources/sprites/wBishop.png");
+    wKingTex.loadFromFile("resources/sprites/wKing.png");
+    wKnightTex.loadFromFile("resources/sprites/wKnight.png");
+    wPawnTex.loadFromFile("resources/sprites/wPawn.png");
+    wQueenTex.loadFromFile("resources/sprites/wQueen.png");
+    wRookTex.loadFromFile("resources/sprites/wRook.png");
 
 
 }
