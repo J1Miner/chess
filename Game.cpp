@@ -2,25 +2,22 @@
 
 void Game::Setup(Piece* blackPieces, Piece* whitePieces) {
     //Piece::loadStaticTextures();
-    int m = 0;
-    for (int i = 0; i < 3; i++) {
-        for (int j = (i % 2 == 0) ? 1 : 0; j < 8; j += 2) {
-            whitePieces[m] = Piece(j, i, sf::Color::White, PAWN);
-            m++;
-        }
+    for (int i = 0; i < 8; i++) {
+        
+            whitePieces[i] = Piece(i, 1, sf::Color::White, PAWN);
+        
     }
 
-    m = 0;
-    for (int i = 5; i < 8; i++) {
-        for (int j = (i % 2 == 1) ? 0 : 1; j < 8; j += 2) {
-            blackPieces[m] = Piece(j, i, sf::Color::Black, PAWN);
-            m++;
-        }
+
+    for (int i = 0; i < 8; i++) {
+       
+            blackPieces[i] = Piece(i, 6, sf::Color::Black, PAWN);
+
     }
 }
 
 Piece* Game::FindPiece(int x, int y, Piece* blackPieces, Piece* whitePieces) {
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i <= 8; i++) {
         if ((blackPieces[i].x == x && blackPieces[i].y == y && blackPieces[i].isAlive) ||
             (whitePieces[i].x == x && whitePieces[i].y == y && whitePieces[i].isAlive)) {
             return (blackPieces[i].x == x && blackPieces[i].y == y) ? &blackPieces[i] : &whitePieces[i];
@@ -66,12 +63,12 @@ std::vector<std::pair<int, int>> Game::GetAvailableJumps(Piece* piece, Piece* bl
 
 std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* blackPieces, Piece* whitePieces) {
     std::vector<std::pair<int, int>> availableMoves;
-    std::vector<std::pair<int, int>> availableJumps = GetAvailableJumps(piece, blackPieces, whitePieces);
+    //std::vector<std::pair<int, int>> availableJumps = GetAvailableJumps(piece, blackPieces, whitePieces);
 
     // If there are available jumps, return only the jumps
-    if (!availableJumps.empty()) {
+    /*if (!availableJumps.empty()) {
         return availableJumps;
-    }
+    }*/
 
     // Define directions for movement
     std::vector<std::pair<int, int>> directions;

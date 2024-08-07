@@ -1,4 +1,5 @@
 #include "Piece.h"
+#include <iostream>
 
 // Define static member variables
 sf::Texture Piece::bBishopTex;
@@ -80,9 +81,16 @@ void Piece::Draw(sf::RenderWindow& window) {
     if (isAlive) {
         //sf::CircleShape shape(30.f);
         //shape.setFillColor(color);
+        std::cout << "trying to draw piece\n";
+        std::cout << "Color : ";
+        if (color == sf::Color::White)
+            std::cout << "White\n";
+        else
+            std::cout << "Black\n";
         sf::Sprite sprite;
         sprite.setTexture(*texture);
-        sprite.setPosition(sf::Vector2f(x * 75 + 7.5f, y * 75 + 7.5f));
+        sprite.setScale(60. / 133., 60./133.);
+        sprite.setPosition(sf::Vector2f(x * 75 + 7, y * 75 + 7));
         window.draw(sprite);
 
        /*if (isKing) {

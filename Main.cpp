@@ -2,6 +2,7 @@
 #include "board.h"
 #include "piece.h"
 #include "game.h"
+#include <iostream>
 
 //hello John
 //TODO: initialize loadTexture function here
@@ -17,8 +18,8 @@ int main() {
 
     // Initialize board and pieces
     Board board;
-    Piece blackPieces[12];
-    Piece whitePieces[12];
+    Piece blackPieces[8];
+    Piece whitePieces[8];
     Game game;
     game.Setup(blackPieces, whitePieces);
 
@@ -49,9 +50,11 @@ int main() {
         // Draw board and pieces
         board.Draw(window);
         for ( Piece& piece : blackPieces) {
+            std::cout << piece.x << ", " << piece.y << "\n";
             piece.Draw(window);
         }
         for ( Piece& piece : whitePieces) {
+            std::cout << piece.x << ", " << piece.y << "\n";
             piece.Draw(window);
         }
 
