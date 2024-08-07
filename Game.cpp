@@ -76,8 +76,7 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
     // Add forward directions based on piece color
     if (piece->color == sf::Color::White) {
         // White pieces move forward (downward)
-        directions.push_back({ -1, 1 }); // forward-left
-        directions.push_back({ 1, 1 });  // forward-right
+        directions.push_back({ 0,1});  // forward-right
 
         // Allow backward directions if the piece is king
         if (piece->isKing) {
@@ -87,13 +86,13 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
     }
     else if (piece->color == sf::Color::Black) {
         // Black pieces move forward (upward)
-        directions.push_back({ -1, -1 }); // forward-left
-        directions.push_back({ 1, -1 });  // forward-right
+         // forward-left
+        directions.push_back({ 0,-1 });  // forward-right
 
         // Allow backward directions if the piece is king
         if (piece->isKing) {
-            directions.push_back({ -1, 1 }); // backward-left
-            directions.push_back({ 1, 1 });  // backward-right
+            directions.push_back({ 1,1 }); // backward-left
+            directions.push_back({ -1,-1 });  // backward-right
         }
     }
 
@@ -116,11 +115,7 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
 
 void Game::MovePiece(Piece* piece, int newX, int newY, Piece* blackPieces, Piece* whitePieces, bool isJump) {
     // If it was a jump, kill the jumped piece
-    if (isJump) {
-        int midX = (piece->x + newX) / 2;
-        int midY = (piece->y + newY) / 2;
-        KillPiece(midX, midY, blackPieces, whitePieces);
-    }
+    
 
     // Update piece position
     piece->x = newX;
