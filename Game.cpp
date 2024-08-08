@@ -109,6 +109,7 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
     }
     for (std::pair<int, int> jump : availableJumps) {
         availableMoves.push_back(jump);
+        
     }
 
     return availableMoves;
@@ -117,11 +118,11 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
 void Game::MovePiece(Piece* piece, int newX, int newY, Piece* blackPieces, Piece* whitePieces, bool isJump) {
     // If it was a jump, kill the jumped piece
     
-    if (isJump) {
-        int midX = (piece->x + newX) / 2;
-        int midY = (piece->y + newY) / 2;
-        KillPiece(midX, midY, blackPieces, whitePieces);
-    }
+
+        //int midX = (piece->x + newX) / 2;
+        //int midY = (piece->y + newY) / 2;
+        KillPiece(newX, newY, blackPieces, whitePieces);
+    
     // Update piece position
     piece->x = newX;
     piece->y = newY;
@@ -162,13 +163,10 @@ void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* blackPieces, Pie
 
         // Check if the clicked position is the same as the selected piece's position
         if (clickedX == selectedX && clickedY == selectedY) {
-            // Allow deselection only if the piece hasn't jumped or there are no more available jumps
-            if (!pieceHasJumped || GetAvailableJumps(selectedPiece, blackPieces, whitePieces).empty()) {
                 isPieceSelected = false;
                 selectedX = -1;
                 selectedY = -1;
                 pieceHasJumped = false;
-            }
             return;
         }
 
@@ -181,10 +179,6 @@ void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* blackPieces, Pie
         for (const auto& move : availableMoves) {
             if (move.first == clickedX && move.second == clickedY) {
                 validMove = true;
-                // If the move is a jump, set the flag to true
-                if (std::abs(selectedPiece->x - clickedX) > 1) {
-                    isJump = true;
-                }
                 break;
             }
         }
@@ -192,20 +186,12 @@ void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* blackPieces, Pie
         if (validMove) {
             MovePiece(selectedPiece, clickedX, clickedY, blackPieces, whitePieces, isJump);
 
-            // Check for available jumps after the move
-            std::vector<std::pair<int, int>> newAvailableJumps = GetAvailableJumps(selectedPiece, blackPieces, whitePieces);
-            if (isJump && !newAvailableJumps.empty()) {
-                // Keep the piece selected if there are further jumps available
-                selectedX = clickedX;
-                selectedY = clickedY;
-                pieceHasJumped = true;
-            }
-            else {
+            
                 // Switch turns if there are no further jumps
                 turn = 1 - turn;
                 isPieceSelected = false;
                 pieceHasJumped = false;
-            }
+            
         }
     }
     else {
