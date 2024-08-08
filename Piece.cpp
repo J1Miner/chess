@@ -18,7 +18,7 @@ sf::Texture Piece::wRookTex;
 Piece::Piece() {
     x = 0;
     y = 0;
-    color = sf::Color::White;
+    color = sf::Color::Black;
     pieceType = PAWN;
 }
 
@@ -84,10 +84,10 @@ void Piece::Draw(sf::RenderWindow& window) {
         //shape.setFillColor(color);
         std::cout << "trying to draw piece\n";
         std::cout << "Color : ";
-        if (color == sf::Color::White)
-            std::cout << "White\n";
+        if (color == sf::Color::Black)
+            std::cout << "black\n";
         else
-            std::cout << "Black\n";
+            std::cout << "white\n";
         sf::Sprite sprite;
         sprite.setTexture(*texture);
         sprite.setScale(60. / 133., 60./133.);

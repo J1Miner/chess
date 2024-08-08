@@ -18,13 +18,13 @@ int main() {
 
     // Initialize board and pieces
     Board board;
-    Piece blackPieces[8];
-    Piece whitePieces[9];
+    Piece whitePieces[8];
+    Piece blackPieces[9];
     Game game;
-    game.Setup(blackPieces, whitePieces);
+    game.Setup(whitePieces, blackPieces);
 
     // Game state variables
-    int turn = 0;  // 0 for Black, 1 for White
+    int turn = 0;  // 0 for white, 1 for black
     int selectedX = -1;
     int selectedY = -1;
     bool isPieceSelected = false;
@@ -40,7 +40,7 @@ int main() {
             }
             else if (event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-                game.ProcessTurn(turn, mousePos, blackPieces, whitePieces, selectedX, selectedY, isPieceSelected, pieceHasJumped);
+                game.ProcessTurn(turn, mousePos, whitePieces, blackPieces, selectedX, selectedY, isPieceSelected, pieceHasJumped);
             }
         }
 
@@ -49,11 +49,11 @@ int main() {
 
         // Draw board and pieces
         board.Draw(window);
-        for ( Piece& piece : blackPieces) {
+        for ( Piece& piece : whitePieces) {
             std::cout << piece.x << ", " << piece.y << "\n";
             piece.Draw(window);
         }
-        for ( Piece& piece : whitePieces) {
+        for ( Piece& piece : blackPieces) {
             std::cout << piece.x << ", " << piece.y << "\n";
             piece.Draw(window);
         }
@@ -63,8 +63,8 @@ int main() {
             board.HighlightSelectedPiece(window, selectedX, selectedY);
 
             // Get available moves and highlight them
-            Piece* selectedPiece = game.FindPiece(selectedX, selectedY, blackPieces, whitePieces);
-            std::vector<std::pair<int, int>> availableMoves = game.GetAvailableMoves(selectedPiece, blackPieces, whitePieces);
+            Piece* selectedPiece = game.FindPiece(selectedX, selectedY, whitePieces, blackPieces);
+            std::vector<std::pair<int, int>> availableMoves = game.GetAvailableMoves(selectedPiece, whitePieces, blackPieces);
             for (const auto& move : availableMoves) {
                 board.HighlightMove(window, move.first, move.second);
             }

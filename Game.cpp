@@ -1,41 +1,41 @@
 #include "game.h"
 #include "iostream"
 
-void Game::Setup(Piece* blackPieces, Piece* whitePieces) {
+void Game::Setup(Piece* whitePieces, Piece* blackPieces) {
     //Piece::loadStaticTextures();
     for (int i = 0; i < 8; i++) {
         
-            whitePieces[i] = Piece(i, 1, sf::Color::White, PAWN);
+            blackPieces[i] = Piece(i, 1, sf::Color::Black, PAWN);
         
     }
-    whitePieces[8] = Piece(0, 0, sf::Color::White, ROOK);
+    blackPieces[8] = Piece(0, 0, sf::Color::Black, ROOK);
 
 
     for (int i = 0; i < 8; i++) {
        
-            blackPieces[i] = Piece(i, 6, sf::Color::Black, PAWN);
+            whitePieces[i] = Piece(i, 6, sf::Color::White, PAWN);
 
     }
 }
 
-Piece* Game::FindPiece(int x, int y, Piece* blackPieces, Piece* whitePieces) {
+Piece* Game::FindPiece(int x, int y, Piece* whitePieces, Piece* blackPieces) {
     for (int i = 0; i <= 8; i++) {
-        if ((blackPieces[i].x == x && blackPieces[i].y == y && blackPieces[i].isAlive) ||
-            (whitePieces[i].x == x && whitePieces[i].y == y && whitePieces[i].isAlive)) {
-            return (blackPieces[i].x == x && blackPieces[i].y == y) ? &blackPieces[i] : &whitePieces[i];
+        if ((whitePieces[i].x == x && whitePieces[i].y == y && whitePieces[i].isAlive) ||
+            (blackPieces[i].x == x && blackPieces[i].y == y && blackPieces[i].isAlive)) {
+            return (whitePieces[i].x == x && whitePieces[i].y == y) ? &whitePieces[i] : &blackPieces[i];
         }
     }
     return nullptr;
 }
 
-void Game::KillPiece(int x, int y, Piece* blackPieces, Piece* whitePieces) {
-    Piece* pieceToKill = FindPiece(x, y, blackPieces, whitePieces);
+void Game::KillPiece(int x, int y, Piece* whitePieces, Piece* blackPieces) {
+    Piece* pieceToKill = FindPiece(x, y, whitePieces, blackPieces);
     if (pieceToKill != nullptr) {
         pieceToKill->isAlive = false;
     }
 }
 
-std::vector<std::pair<int, int>> Game::GetAvailableJumps(Piece* piece, Piece* blackPieces, Piece* whitePieces) {
+std::vector<std::pair<int, int>> Game::GetAvailableJumps(Piece* piece, Piece* whitePieces, Piece* blackPieces) {
     std::vector<std::pair<int, int>> availableJumps;
     int directions[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
@@ -46,13 +46,13 @@ std::vector<std::pair<int, int>> Game::GetAvailableJumps(Piece* piece, Piece* bl
 
         // Ensure the jump is within bounds
         if (newX >= 0 && newY >= 0 && newX < 8 && newY < 8) {
-            Piece* destPiece = FindPiece(newX, newY, blackPieces, whitePieces);
+            Piece* destPiece = FindPiece(newX, newY, whitePieces, blackPieces);
             //std::cout << destPiece->x << ", " << destPiece->y << " " << destPiece->color.toInteger() << std::endl;
 
             // Only allow jumps over opponent pieces to an empty square
             if (destPiece != nullptr && destPiece->color != piece->color ) {
                 // Ensure no backward jumps allowed
-                if ((piece->color == sf::Color::White && newY > piece->y) || (piece->color == sf::Color::Black && newY < piece->y)) {
+                if ((piece->color == sf::Color::Black && newY > piece->y) || (piece->color == sf::Color::White && newY < piece->y)) {
                     availableJumps.push_back({ newX, newY });
                 }
             }
@@ -61,9 +61,9 @@ std::vector<std::pair<int, int>> Game::GetAvailableJumps(Piece* piece, Piece* bl
     return availableJumps;
 }
 
-std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* blackPieces, Piece* whitePieces) {
+std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* whitePieces, Piece* blackPieces) {
     std::vector<std::pair<int, int>> availableMoves;
-    std::vector<std::pair<int, int>> availableJumps = GetAvailableJumps(piece, blackPieces, whitePieces);
+    std::vector<std::pair<int, int>> availableJumps = GetAvailableJumps(piece, whitePieces, blackPieces);
 
     // If there are available jumps, return only the jumps
    /* if (!availableJumps.empty()) {
@@ -75,16 +75,16 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
     std::vector<std::pair<int, int>> directions;
 
     // Add forward directions based on piece color
-    if (piece->color == sf::Color::White) {
-        // White pieces move forward (downward)
+    if (piece->color == sf::Color::Black) {
+        // black pieces move forward (downward)
         directions.push_back({ 0,1});  // forward-right
 
         if (piece->firstTurn) {
             directions.push_back({ 0, 2 }); // backward-left
         }
     }
-    else if (piece->color == sf::Color::Black) {
-        // Black pieces move forward (upward)
+    else if (piece->color == sf::Color::White) {
+        // white pieces move forward (upward)
          // forward-left
         directions.push_back({ 0,-1 });  // forward-right
 
@@ -101,7 +101,7 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
         int newY = piece->y + dir.second;
 
         if (newX >= 0 && newY >= 0 && newX < 8 && newY < 8) {
-            Piece* destPiece = FindPiece(newX, newY, blackPieces, whitePieces);
+            Piece* destPiece = FindPiece(newX, newY, whitePieces, blackPieces);
             if (destPiece == nullptr) {
                 // Empty square - add as available move
                 availableMoves.push_back({ newX, newY });
@@ -116,13 +116,13 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
     return availableMoves;
 }
 
-void Game::MovePiece(Piece* piece, int newX, int newY, Piece* blackPieces, Piece* whitePieces, bool isJump) {
+void Game::MovePiece(Piece* piece, int newX, int newY, Piece* whitePieces, Piece* blackPieces, bool isJump) {
     // If it was a jump, kill the jumped piece
     
 
         //int midX = (piece->x + newX) / 2;
         //int midY = (piece->y + newY) / 2;
-        KillPiece(newX, newY, blackPieces, whitePieces);
+        KillPiece(newX, newY, whitePieces, blackPieces);
     
     // Update piece position
     piece->x = newX;
@@ -131,8 +131,8 @@ void Game::MovePiece(Piece* piece, int newX, int newY, Piece* blackPieces, Piece
     // Crown the piece if it reaches the last row
     if (piece->firstTurn)
         piece->firstTurn = false;
-    if ((piece->color == sf::Color::White && piece->y == 7) ||
-        (piece->color == sf::Color::Black && piece->y == 0)) {
+    if ((piece->color == sf::Color::Black && piece->y == 7) ||
+        (piece->color == sf::Color::White && piece->y == 0)) {
         piece->isKing = true;
     }
 }
@@ -155,12 +155,12 @@ void Game::HighlightMove(sf::RenderWindow& window, int x, int y) const {
     window.draw(highlight);
 }
 
-void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* blackPieces, Piece* whitePieces, int& selectedX, int& selectedY, bool& isPieceSelected, bool& pieceHasJumped) {
+void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* whitePieces, Piece* blackPieces, int& selectedX, int& selectedY, bool& isPieceSelected, bool& pieceHasJumped) {
     int clickedX = mousePos.x / 75;
     int clickedY = mousePos.y / 75;
 
     if (isPieceSelected) {
-        Piece* selectedPiece = FindPiece(selectedX, selectedY, blackPieces, whitePieces);
+        Piece* selectedPiece = FindPiece(selectedX, selectedY, whitePieces, blackPieces);
 
         // Check if the clicked position is the same as the selected piece's position
         if (clickedX == selectedX && clickedY == selectedY) {
@@ -172,7 +172,7 @@ void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* blackPieces, Pie
         }
 
         // Process the move
-        std::vector<std::pair<int, int>> availableMoves = GetAvailableMoves(selectedPiece, blackPieces, whitePieces);
+        std::vector<std::pair<int, int>> availableMoves = GetAvailableMoves(selectedPiece, whitePieces, blackPieces);
         bool validMove = false;
         bool isJump = false;
 
@@ -185,7 +185,7 @@ void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* blackPieces, Pie
         }
 
         if (validMove) {
-            MovePiece(selectedPiece, clickedX, clickedY, blackPieces, whitePieces, isJump);
+            MovePiece(selectedPiece, clickedX, clickedY, whitePieces, blackPieces, isJump);
 
             
                 // Switch turns if there are no further jumps
@@ -197,9 +197,9 @@ void Game::ProcessTurn(int& turn, sf::Vector2i mousePos, Piece* blackPieces, Pie
     }
     else {
         // Select a piece
-        Piece* clickedPiece = FindPiece(clickedX, clickedY, blackPieces, whitePieces);
-        if (clickedPiece && clickedPiece->isAlive && clickedPiece->color == (turn == 0 ? sf::Color::Black : sf::Color::White)) {
-            std::vector<std::pair<int, int>> availableMoves = GetAvailableMoves(clickedPiece, blackPieces, whitePieces);
+        Piece* clickedPiece = FindPiece(clickedX, clickedY, whitePieces, blackPieces);
+        if (clickedPiece && clickedPiece->isAlive && clickedPiece->color == (turn == 0 ? sf::Color::White : sf::Color::Black)) {
+            std::vector<std::pair<int, int>> availableMoves = GetAvailableMoves(clickedPiece, whitePieces, blackPieces);
 
             // Check if there are any available moves
             if (!availableMoves.empty()) {
