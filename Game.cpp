@@ -8,6 +8,7 @@ void Game::Setup(Piece* blackPieces, Piece* whitePieces) {
             whitePieces[i] = Piece(i, 1, sf::Color::White, PAWN);
         
     }
+    whitePieces[8] = Piece(0, 0, sf::Color::White, ROOK);
 
 
     for (int i = 0; i < 8; i++) {
