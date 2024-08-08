@@ -28,6 +28,7 @@ Piece::Piece(int x, int y, sf::Color color, Type pieceType){
     this->color = color;
     this->pieceType = pieceType;
     setTexture();
+    
 }
 
 void Piece::setTexture() {

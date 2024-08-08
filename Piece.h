@@ -28,7 +28,7 @@ public:
     bool isKing = false;
     sf::Texture *texture = nullptr;
     Type pieceType = PAWN;
-
+    bool firstTurn = true;
     sf::Color color;
     bool isAlive = true;
     Piece();

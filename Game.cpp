@@ -1,4 +1,5 @@
 #include "game.h"
+#include "iostream"
 
 void Game::Setup(Piece* blackPieces, Piece* whitePieces) {
     //Piece::loadStaticTextures();
@@ -35,39 +36,38 @@ void Game::KillPiece(int x, int y, Piece* blackPieces, Piece* whitePieces) {
 
 std::vector<std::pair<int, int>> Game::GetAvailableJumps(Piece* piece, Piece* blackPieces, Piece* whitePieces) {
     std::vector<std::pair<int, int>> availableJumps;
-    int directions[4][2] = { {2, 2}, {2, -2}, {-2, 2}, {-2, -2} };
+    int directions[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
     for (int i = 0; i < 4; i++) {
         int newX = piece->x + directions[i][0];
         int newY = piece->y + directions[i][1];
-        int midX = piece->x + directions[i][0] / 2;
-        int midY = piece->y + directions[i][1] / 2;
+
 
         // Ensure the jump is within bounds
         if (newX >= 0 && newY >= 0 && newX < 8 && newY < 8) {
-            Piece* middlePiece = FindPiece(midX, midY, blackPieces, whitePieces);
             Piece* destPiece = FindPiece(newX, newY, blackPieces, whitePieces);
+            //std::cout << destPiece->x << ", " << destPiece->y << " " << destPiece->color.toInteger() << std::endl;
 
             // Only allow jumps over opponent pieces to an empty square
-            if (middlePiece != nullptr && middlePiece->color != piece->color && destPiece == nullptr) {
-                // Ensure backward jumps are only allowed for kings
-                if (piece->isKing || (piece->color == sf::Color::White && newY > piece->y) || (piece->color == sf::Color::Black && newY < piece->y)) {
+            if (destPiece != nullptr && destPiece->color != piece->color ) {
+                // Ensure no backward jumps allowed
+                if ((piece->color == sf::Color::White && newY > piece->y) || (piece->color == sf::Color::Black && newY < piece->y)) {
                     availableJumps.push_back({ newX, newY });
                 }
             }
         }
     }
-
     return availableJumps;
 }
 
 std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* blackPieces, Piece* whitePieces) {
     std::vector<std::pair<int, int>> availableMoves;
-    //std::vector<std::pair<int, int>> availableJumps = GetAvailableJumps(piece, blackPieces, whitePieces);
+    std::vector<std::pair<int, int>> availableJumps = GetAvailableJumps(piece, blackPieces, whitePieces);
 
     // If there are available jumps, return only the jumps
-    /*if (!availableJumps.empty()) {
-        return availableJumps;
+   /* if (!availableJumps.empty()) {
+        //return availableJumps;
+        //std::cout << "jump available\n";
     }*/
 
     // Define directions for movement
@@ -78,10 +78,8 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
         // White pieces move forward (downward)
         directions.push_back({ 0,1});  // forward-right
 
-        // Allow backward directions if the piece is king
-        if (piece->isKing) {
-            directions.push_back({ -1, -1 }); // backward-left
-            directions.push_back({ 1, -1 });  // backward-right
+        if (piece->firstTurn) {
+            directions.push_back({ 0, 2 }); // backward-left
         }
     }
     else if (piece->color == sf::Color::Black) {
@@ -90,9 +88,9 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
         directions.push_back({ 0,-1 });  // forward-right
 
         // Allow backward directions if the piece is king
-        if (piece->isKing) {
-            directions.push_back({ 1,1 }); // backward-left
-            directions.push_back({ -1,-1 });  // backward-right
+        if (piece->firstTurn) {
+            directions.push_back({ 0,-2 }); // backward-left
+
         }
     }
 
@@ -109,6 +107,9 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
             }
         }
     }
+    for (std::pair<int, int> jump : availableJumps) {
+        availableMoves.push_back(jump);
+    }
 
     return availableMoves;
 }
@@ -116,12 +117,18 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* bl
 void Game::MovePiece(Piece* piece, int newX, int newY, Piece* blackPieces, Piece* whitePieces, bool isJump) {
     // If it was a jump, kill the jumped piece
     
-
+    if (isJump) {
+        int midX = (piece->x + newX) / 2;
+        int midY = (piece->y + newY) / 2;
+        KillPiece(midX, midY, blackPieces, whitePieces);
+    }
     // Update piece position
     piece->x = newX;
     piece->y = newY;
 
     // Crown the piece if it reaches the last row
+    if (piece->firstTurn)
+        piece->firstTurn = false;
     if ((piece->color == sf::Color::White && piece->y == 7) ||
         (piece->color == sf::Color::Black && piece->y == 0)) {
         piece->isKing = true;
