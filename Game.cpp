@@ -22,6 +22,14 @@ void Game::Setup(Piece* whitePieces, Piece* blackPieces) {
             whitePieces[i] = Piece(i, 6, sf::Color::White, PAWN);
 
     }
+    whitePieces[8] = Piece(0, 7, sf::Color::White, ROOK);
+    whitePieces[9] = Piece(7, 7, sf::Color::White, ROOK);
+    whitePieces[10] = Piece(6, 7, sf::Color::White, KNIGHT);
+    whitePieces[11] = Piece(1, 7, sf::Color::White, KNIGHT);
+    whitePieces[12] = Piece(2, 7, sf::Color::White, BISHOP);
+    whitePieces[13] = Piece(5, 7, sf::Color::White, BISHOP);
+    whitePieces[14] = Piece(4, 7, sf::Color::White, KING);
+    whitePieces[15] = Piece(3, 7, sf::Color::White, QUEEN);
 }
 
 Piece* Game::FindPiece(int x, int y, Piece* whitePieces, Piece* blackPieces) {

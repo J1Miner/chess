@@ -18,7 +18,7 @@ int main() {
 
     // Initialize board and pieces
     Board board;
-    Piece whitePieces[8];
+    Piece whitePieces[16];
     Piece blackPieces[16];
     Game game;
     game.Setup(whitePieces, blackPieces);
