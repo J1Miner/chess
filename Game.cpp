@@ -9,7 +9,13 @@ void Game::Setup(Piece* whitePieces, Piece* blackPieces) {
         
     }
     blackPieces[8] = Piece(0, 0, sf::Color::Black, ROOK);
-
+    blackPieces[9] = Piece(7,0, sf::Color::Black, ROOK);
+    blackPieces[10] = Piece(6, 0, sf::Color::Black, KNIGHT);
+    blackPieces[11] = Piece(1,0, sf::Color::Black, KNIGHT);
+    blackPieces[12] = Piece(2, 0, sf::Color::Black, BISHOP);
+    blackPieces[13] = Piece(5,0, sf::Color::Black, BISHOP);
+    blackPieces[14] = Piece(4, 0, sf::Color::Black, KING);
+    blackPieces[15] = Piece(3,0, sf::Color::Black, QUEEN);
 
     for (int i = 0; i < 8; i++) {
        
