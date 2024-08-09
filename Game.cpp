@@ -33,7 +33,7 @@ void Game::Setup(Piece* whitePieces, Piece* blackPieces) {
 }
 
 Piece* Game::FindPiece(int x, int y, Piece* whitePieces, Piece* blackPieces) {
-    for (int i = 0; i <= 8; i++) {
+    for (int i = 0; i <= 16; i++) {
         if ((whitePieces[i].x == x && whitePieces[i].y == y && whitePieces[i].isAlive) ||
             (blackPieces[i].x == x && blackPieces[i].y == y && blackPieces[i].isAlive)) {
             return (whitePieces[i].x == x && whitePieces[i].y == y) ? &whitePieces[i] : &blackPieces[i];
@@ -93,7 +93,7 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* wh
         // black pieces move forward (downward)
         directions.push_back({ 0,1});  // forward-right
 
-        if (piece->firstTurn) {
+        if (piece->firstTurn&& FindPiece(piece->x + 0, piece ->y + 2, whitePieces, blackPieces) == nullptr) {
             directions.push_back({ 0, 2 }); // backward-left
         }
     }
