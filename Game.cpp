@@ -92,9 +92,14 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* wh
     if (piece->color == sf::Color::Black) {
         // black pieces move forward (downward)
         directions.push_back({ 0,1});  // forward-right
-
-        if (piece->firstTurn&& FindPiece(piece->x + 0, piece ->y + 2, whitePieces, blackPieces) == nullptr) {
-            directions.push_back({ 0, 2 }); // backward-left
+        if (piece->firstTurn) {
+            // Check if there is no piece one square ahead
+            if (FindPiece(piece->x, piece->y + 1, whitePieces, blackPieces) == nullptr) {
+                // Check if there is no piece two squares ahead
+                if (FindPiece(piece->x, piece->y + 2, whitePieces, blackPieces) == nullptr) {
+                    directions.push_back({ 0, 2 }); // Move two squares forward
+                }
+            }
         }
     }
     else if (piece->color == sf::Color::White) {
@@ -104,9 +109,15 @@ std::vector<std::pair<int, int>> Game::GetAvailableMoves(Piece* piece, Piece* wh
 
         // Allow backward directions if the piece is king
         if (piece->firstTurn) {
-            directions.push_back({ 0,-2 }); // backward-left
-
+            // Check if there is no piece one square ahead (upward)
+            if (FindPiece(piece->x, piece->y - 1, whitePieces, blackPieces) == nullptr) {
+                // Check if there is no piece two squares ahead (upward)
+                if (FindPiece(piece->x, piece->y - 2, whitePieces, blackPieces) == nullptr) {
+                    directions.push_back({ 0, -2 }); // Move two squares forward
+                }
+            }
         }
+
     }
 
     // Iterate through the possible directions and check for valid moves
