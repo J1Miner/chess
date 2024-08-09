@@ -5,6 +5,11 @@
 class Game {
 public:
     void Setup(Piece* whitePieces, Piece* blackPieces);
+
+    bool IsKingInCheck(Piece* king, Piece* whitePieces, Piece* blackPieces);
+
+    Piece* FindPieceOfType(Type type, Piece* pieces);
+
     Piece* FindPiece(int x, int y, Piece* whitePieces, Piece* blackPieces);
     void KillPiece(int x, int y, Piece* whitePieces, Piece* blackPieces);
     std::vector<std::pair<int, int>> GetAvailableJumps(Piece* piece, Piece* whitePieces, Piece* blackPieces);

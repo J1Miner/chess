@@ -15,20 +15,10 @@ sf::Texture Piece::wPawnTex;
 sf::Texture Piece::wQueenTex;
 sf::Texture Piece::wRookTex;
 
-Piece::Piece() {
-    x = 0;
-    y = 0;
-    color = sf::Color::Black;
-    pieceType = PAWN;
-}
+Piece::Piece() : x(0), y(0), color(sf::Color::Black), pieceType(PAWN), isAlive(true), isKing(false), firstTurn(true), texture(nullptr) {}
 
-Piece::Piece(int x, int y, sf::Color color, Type pieceType){
-    this->x = x;
-    this->y = y;
-    this->color = color;
-    this->pieceType = pieceType;
+Piece::Piece(int x, int y, sf::Color color, Type pieceType) : x(x), y(y), color(color), pieceType(pieceType), isAlive(true), isKing(false), firstTurn(true) {
     setTexture();
-    
 }
 
 void Piece::setTexture() {
@@ -80,28 +70,22 @@ void Piece::setTexture() {
 
 void Piece::Draw(sf::RenderWindow& window) {
     if (isAlive) {
-        //sf::CircleShape shape(30.f);
-        //shape.setFillColor(color);
-        std::cout << "trying to draw piece\n";
-        std::cout << "Color : ";
-        if (color == sf::Color::Black)
-            std::cout << "black\n";
-        else
-            std::cout << "white\n";
         sf::Sprite sprite;
         sprite.setTexture(*texture);
-        sprite.setScale(60. / 133., 60./133.);
+        sprite.setScale(60. / 133., 60. / 133.);
         sprite.setPosition(sf::Vector2f(x * 75 + 7, y * 75 + 7));
         window.draw(sprite);
 
-       /*if (isKing) {
-            shape.setFillColor(sf::Color::Green);
-            shape.setRadius(10.f);
-            shape.setPosition(sf::Vector2f(x * 75 + 30, y * 75 + 30));
-            window.draw(shape);
-        }*/
+        // Optionally draw a king marker if the piece is a king
+        if (isKing) {
+            sf::CircleShape crown(10.f);
+            crown.setFillColor(sf::Color::Yellow);  // Example color for king marker
+            crown.setPosition(sf::Vector2f(x * 75 + 32, y * 75 + 32));  // Center it
+            window.draw(crown);
+        }
     }
 }
+
 void Piece::loadStaticTextures() {
     bBishopTex.loadFromFile("resources/sprites/bBishop.png");
     bKingTex.loadFromFile("resources/sprites/bKing.png");

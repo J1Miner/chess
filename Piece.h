@@ -1,15 +1,18 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+
 enum Type {
-    BISHOP,
-    KING,
-    KNIGHT,
     PAWN,
+    ROOK,
+    KNIGHT,
+    BISHOP,
     QUEEN,
-    ROOK
+    KING
 };
+
 class Piece {
 public:
+    // Static textures for all piece types
     static sf::Texture bBishopTex;
     static sf::Texture bKingTex;
     static sf::Texture bKnightTex;
@@ -23,19 +26,25 @@ public:
     static sf::Texture wQueenTex;
     static sf::Texture wRookTex;
 
+    // Piece attributes
     int x;
     int y;
     bool isKing = false;
-    sf::Texture *texture = nullptr;
+    sf::Texture* texture = nullptr;
     Type pieceType = PAWN;
     bool firstTurn = true;
     sf::Color color;
     bool isAlive = true;
+
+    // Constructors
     Piece();
     Piece(int x, int y, sf::Color color, Type pieceType);
 
+    // Methods
     void Draw(sf::RenderWindow& window);
     void setTexture();
 
+    // Static method to load textures
     static void loadStaticTextures();
 };
+
